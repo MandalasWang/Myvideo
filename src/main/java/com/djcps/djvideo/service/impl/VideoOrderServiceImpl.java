@@ -10,15 +10,19 @@ import com.djcps.djvideo.mapper.VideoMapper;
 import com.djcps.djvideo.mapper.VideoOrderMapper;
 import com.djcps.djvideo.service.VideoOrderService;
 import com.djcps.djvideo.utils.ComonUtils;
+import com.djcps.djvideo.utils.HttpUtils;
 import com.djcps.djvideo.utils.WxPayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-
+/**
+ * @author 有缘
+ */
 @Service
 public class VideoOrderServiceImpl implements VideoOrderService {
     @Autowired
@@ -29,41 +33,59 @@ public class VideoOrderServiceImpl implements VideoOrderService {
     private VideoOrderMapper videoOrderMapper;
     @Autowired
     private UserMapper userMapper;
+
     @Override
-    public VideoOrder save(VideoOrderDto videoOrderDto)  {
+    public String save(VideoOrderDto videoOrderDto) {
         Video video = videoMapper.findByid(videoOrderDto.getVideoId());
-        User user  = userMapper.findByid(videoOrderDto.getUserId());
+        User user = userMapper.findByid(videoOrderDto.getUserId());
         //生成订单
         VideoOrder videoOrder = new VideoOrder();
         videoOrder.setTotalFee(video.getPrice());
-        videoOrder.setHeadImg(video.getCoverImg());
+        videoOrder.setHeadImg(user.getHeadImg());
         videoOrder.setVideoTitle(video.getTitle());
         videoOrder.setVideoId(video.getId());
         videoOrder.setCreateTime(new Date());
+        videoOrder.setOpenid(user.getOpenid());
 
         videoOrder.setState(0);
         videoOrder.setUserId(user.getId());
-        videoOrder.setHeadImg(user.getHeadImg());
+        videoOrder.setVideoImg(video.getCoverImg());
         videoOrder.setNickname(user.getName());
         videoOrder.setDel(0);
         videoOrder.setOutTradeNo(ComonUtils.generateUUID());
         videoOrder.setIp(videoOrderDto.getIp());
         videoOrderMapper.insert(videoOrder);
+        String codeUrl = "";
         try {
-            unifiedOrder(videoOrder);
+          codeUrl =  unifiedOrder(videoOrder);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         //获取codeurl
 
-        //生成二维码
+        return codeUrl;
+    }
 
-        return videoOrder;
+    @Override
+    public VideoOrder findOrderByOutTradeNo(String outTradeNo) {
+        return videoOrderMapper.findOrderByOutTradeNo(outTradeNo);
+    }
+
+    @Override
+    public int updatePayState(String outTradeNo, int state) {
+       VideoOrder videoOrder = new VideoOrder();
+       videoOrder.setOpenid(weChatConfig.getOpenAppid());
+       videoOrder.setOutTradeNo(outTradeNo);
+       videoOrder.setDel(0);
+       videoOrder.setState(0);
+       videoOrder.setNotifyTime(new Date());
+       return videoOrderMapper.updateVideoOderByOutTradeNo(videoOrder);
     }
 
     /**
      * 统一下单
+     *
      * @param videoOrder
      * @return
      */
@@ -94,6 +116,17 @@ public class VideoOrderServiceImpl implements VideoOrderService {
         String requestXMl = WxPayUtils.mapToXml(params);
 
         //统一下单
-        return requestXMl;
+        String orderreturn = HttpUtils.doPost(WeChatConfig.getUnifiredOrderUrl(), requestXMl, 4000);
+        if(orderreturn == null){
+            return null;
+        }
+        Map<String ,String> unifredmap = WxPayUtils.xmlToMap(orderreturn);
+        //下单成功返回一个二维码
+        if(unifredmap !=null){
+            return unifredmap.get("code_url");
+        }else {
+            return null;
+        }
+
     }
 }

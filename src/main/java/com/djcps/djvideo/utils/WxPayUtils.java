@@ -1,8 +1,11 @@
 package com.djcps.djvideo.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -10,16 +13,28 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.StringWriter;
+import java.io.*;
+
 import java.util.*;
 
 
 /**
  * 微信支付工具类，xml转map,map转xml，生成签名
+ * @author 有缘
  */
 public class WxPayUtils {
+    /**
+     * 密钥算法
+     */
+    private static final String ALGORITHM = "AES";
+    /**
+     * 加解密算法/工作模式/填充方式
+     */
+    private static final String ALGORITHM_MODE_PADDING = "AES/ECB/PKCS7Padding";
+
+
+    private static Logger logger = LoggerFactory.getLogger(WxPayUtils.class);
+
     /**
      * XML格式字符串转换为Map
      *
@@ -134,6 +149,41 @@ public class WxPayUtils {
         String weixinPaySign = params.get("sign").toUpperCase();
 
         return weixinPaySign.equals(sign);
+    }
+
+    /**
+     * 获取请求参数 读取xml格式数据并返回一个String格式的数据
+     *
+     * @param request
+     * @return
+     */
+    public static String readData(HttpServletRequest request) {
+        BufferedReader br = null;
+        try {
+            StringBuilder ret;
+            br = request.getReader();
+            String line = br.readLine();
+            if (line != null) {
+                ret = new StringBuilder();
+                ret.append(line);
+            } else {
+                return "";
+            }
+            while ((line = br.readLine()) != null) {
+                ret.append('\n').append(line);
+            }
+            return ret.toString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    logger.error(e.getMessage(), e);
+                }
+            }
+        }
     }
 
 

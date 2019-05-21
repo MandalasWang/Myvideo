@@ -16,84 +16,107 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *HttpClient封装类
+ * HttpClient封装类
+ *
  * @author 有缘
  */
 public class HttpUtils {
 
-    private static Gson gson = new Gson();
+
+    private static final Gson gson = new Gson();
 
     /**
-     * 封装http get方法
+     * get方法
+     *
      * @param url
      * @return
      */
     public static Map<String, Object> doGet(String url) {
 
+        Map<String, Object> map = new HashMap<>();
         CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        Map<String, Object> map = new HashMap<String, Object>();
-
+        //连接超时
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(5000)
+                //请求超时
                 .setConnectionRequestTimeout(5000)
-                .setRedirectsEnabled(true)
                 .setSocketTimeout(5000)
+                //允许自动重定向
+                .setRedirectsEnabled(true)
                 .build();
 
         HttpGet httpGet = new HttpGet(url);
         httpGet.setConfig(requestConfig);
+
         try {
             HttpResponse httpResponse = httpClient.execute(httpGet);
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                String httopResult = EntityUtils.toString(httpResponse.getEntity());
-                map = gson.fromJson(httopResult, map.getClass());
-            }
-        } catch (Exception e) {
 
+                String jsonResult = EntityUtils.toString(httpResponse.getEntity());
+                map = gson.fromJson(jsonResult, map.getClass());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                httpClient.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return map;
     }
 
+
     /**
-     * 封装post方法
-     * @param url
-     * @param data
-     * @param timeout
+     * 封装post
+     *
      * @return
      */
-    public String doPost(String url, String data, int timeout) {
+    public static String doPost(String url, String data, int timeout) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         //超时设置
+        //连接超时
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout)
+                //请求超时
                 .setConnectionRequestTimeout(timeout)
-                .setRedirectsEnabled(true)
                 .setSocketTimeout(timeout)
+                //允许自动重定向
+                .setRedirectsEnabled(true)
                 .build();
 
-        HttpPost httpPost = new HttpPost();
+
+        HttpPost httpPost = new HttpPost(url);
         httpPost.setConfig(requestConfig);
-
-        httpPost.setHeader("Content-Type","text/html;charset=UTF-8");
-
-        if(data != null && data instanceof String){
-            StringEntity stringEntity = new StringEntity(data,"UTF-8");
-          httpPost.setEntity(stringEntity);
+        httpPost.addHeader("Content-Type", "text/html; chartset=UTF-8");
+          //使用字符串传参
+        if (data != null && data instanceof String) {
+            StringEntity stringEntity = new StringEntity(data, "UTF-8");
+            httpPost.setEntity(stringEntity);
         }
-        try{
+
+        try {
+
             CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                String httpResult = EntityUtils.toString(httpEntity);
-                return httpResult;
+                String result = EntityUtils.toString(httpEntity);
+                return result;
             }
-        }catch (Exception e){
 
-        }finally {
-            try{}catch (Exception e){
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                httpClient.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
+
         return null;
+
     }
+
 
 }

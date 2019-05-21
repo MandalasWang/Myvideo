@@ -4,6 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * @author 有缘
+ */
 public class IpUtils {
     public static String getIpAddr(HttpServletRequest request) {
         String ipAddress = null;

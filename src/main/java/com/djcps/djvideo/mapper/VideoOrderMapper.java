@@ -70,4 +70,12 @@ public interface VideoOrderMapper {
             " where out_trade_no=#{outTradeNo} and state=0 and del=0")
     int updateVideoOderByOutTradeNo(VideoOrder videoOrder);
 
+    /**
+     * 根据outtradeno查询订单
+     * @param outTradeNo
+     * @return
+     */
+    @Select("select * from video_order where out_trade_no = #{outTradeNo}")
+    VideoOrder findOrderByOutTradeNo(String outTradeNo);
+
 }

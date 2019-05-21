@@ -58,6 +58,15 @@ public class WeChatConfig {
      * 商户号id
      */
     @Value("${wxpay.mer_id}")
+    /**
+     * 统一下单地址
+     */
+    private final static String UNIFIRED_ORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+
+    public static String getUnifiredOrderUrl() {
+        return UNIFIRED_ORDER_URL;
+    }
+
     private String mchId;
 
     public String getMchId() {
@@ -94,8 +103,6 @@ public class WeChatConfig {
      */
     @Value("${wxpay.callback}")
     private String payCallbackUrl;
-
-
 
 
     public static String getOpenQrcodeUrl() {

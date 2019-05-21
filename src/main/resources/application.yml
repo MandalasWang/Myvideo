@@ -26,16 +26,18 @@ mybatis:
 #===========================微信配置==========================#
  #公众号
 wxpay:
-  appid: wx5beac15ca207cdd40c
+  appid: wx4f4374e47a360c22
   appsecret: 554801238f17fdsdsdd6f96b382fe548215e9
-  callback: 16web.tunnel.qydev.com/pub/api/v1/wechat/order/callback1
-  key: xdclasss20182018xdclass2018x018d
-  mer_id: 1503808832
+  #微信支付回调
+  callback: 16web.tunnel.qydev.com/v1/wechat/order/callback
+  key: 650477235c5e0882a0470e94accd9f6f
+  mer_id: 1355406302
 #微信开放平台配置
 wxopen:
   appid: wx025575eac69a2d5b
   appsecret: deeae310a387fa9d3e8f3830ce64caac
 
 #重定向url
+  #微信登录回调
   redirect_url: http://eb7cdf9a.ngrok.io/api/v1/wechat/user/callback
 
