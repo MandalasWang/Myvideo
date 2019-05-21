@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * 视频章表
+ * @author 有缘
+ * @date 19/5/21
  */
 public class Chapter implements Serializable {
 

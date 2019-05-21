@@ -1,6 +1,8 @@
 package com.djcps.djvideo.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 订单实体
@@ -11,9 +13,9 @@ public class VideoOrder implements Serializable {
   private String openid;
   private String outTradeNo;
   private Integer state;
-  private java.sql.Date createTime;
-  private java.sql.Date notifyTime;
-  private Integer totalFee;
+  private Date createTime;
+  private Date notifyTime;
+  private BigDecimal totalFee;
   private String nickname;
   private String headImg;
   private Integer videoId;
@@ -60,29 +62,29 @@ public class VideoOrder implements Serializable {
   }
 
 
-  public java.sql.Date getCreateTime() {
+  public Date getCreateTime() {
     return createTime;
   }
 
-  public void setCreateTime(java.sql.Date createTime) {
+  public void setCreateTime(Date createTime) {
     this.createTime = createTime;
   }
 
 
-  public java.sql.Date getNotifyTime() {
+  public Date getNotifyTime() {
     return notifyTime;
   }
 
-  public void setNotifyTime(java.sql.Date notifyTime) {
+  public void setNotifyTime(Date notifyTime) {
     this.notifyTime = notifyTime;
   }
 
 
-  public Integer getTotalFee() {
+  public BigDecimal getTotalFee() {
     return totalFee;
   }
 
-  public void setTotalFee(Integer totalFee) {
+  public void setTotalFee(BigDecimal totalFee) {
     this.totalFee = totalFee;
   }
 

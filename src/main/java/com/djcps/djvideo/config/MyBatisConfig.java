@@ -8,6 +8,7 @@ import java.util.Properties;
 
 /**
  * @author 有缘
+ * @date  19/5/21
  */
 @Configuration
 public class MyBatisConfig {

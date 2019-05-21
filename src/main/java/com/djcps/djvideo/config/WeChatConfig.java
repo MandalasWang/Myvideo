@@ -7,6 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 /**
  * 微信配置类
  * @author 有缘
+ * @date  19/5/21
  */
 @Configuration
 @PropertySource(value="classpath:application.yml")
@@ -53,6 +54,49 @@ public class WeChatConfig {
      * 获取用户信息
      */
     private final static String OPEN_USER_INFO_URL ="https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s";
+    /**
+     * 商户号id
+     */
+    @Value("${wxpay.mer_id}")
+    private String mchId;
+
+    public String getMchId() {
+        return mchId;
+    }
+
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getPayCallbackUrl() {
+        return payCallbackUrl;
+    }
+
+    public void setPayCallbackUrl(String payCallbackUrl) {
+        this.payCallbackUrl = payCallbackUrl;
+    }
+
+    /**
+     * 支付key
+     */
+    @Value("${wxpay.key}")
+    private String key;
+    /**
+     * 支付回调地址
+     */
+    @Value("${wxpay.callback}")
+    private String payCallbackUrl;
+
+
+
 
     public static String getOpenQrcodeUrl() {
         return OPEN_QRCODE_URL;

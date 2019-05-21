@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 有缘
+ * @date 19/5/21
  */
 @RequestMapping("admin/api/v1/video")
 @RestController

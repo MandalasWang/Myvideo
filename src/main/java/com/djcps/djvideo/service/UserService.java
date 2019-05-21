@@ -1,6 +1,8 @@
 package com.djcps.djvideo.service;
 
 
+import com.djcps.djvideo.domain.User;
+
 /**
  * @author 有缘
  */
@@ -10,5 +12,5 @@ public interface UserService {
      * @param code
      * @return
      */
-    int saveWeChatUser(String code);
+    User saveWeChatUser(String code);
 }

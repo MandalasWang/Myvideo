@@ -5,6 +5,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户表
@@ -21,7 +22,7 @@ public class User implements Serializable {
   private String sign;
   private Integer sex;
   private String city;
-  private java.sql.Date createTime;
+  private Date createTime;
 
 
   public Integer getId() {
@@ -96,11 +97,11 @@ public class User implements Serializable {
   }
 
 
-  public java.sql.Date getCreateTime() {
+  public Date getCreateTime() {
     return createTime;
   }
 
-  public void setCreateTime(java.sql.Date createTime) {
+  public void setCreateTime(Date createTime) {
     this.createTime = createTime;
   }
 

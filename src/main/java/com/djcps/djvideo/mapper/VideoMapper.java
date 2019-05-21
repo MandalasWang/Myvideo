@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+/**
+ * 视频dao层
+ */
 public interface VideoMapper {
     @Select("select * from video ")
     List<Video> list();
