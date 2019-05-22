@@ -6,6 +6,7 @@ import java.util.Date;
 
 /**
  * 订单实体
+ * @author 有缘
  */
 public class VideoOrder implements Serializable {
 
@@ -25,6 +26,21 @@ public class VideoOrder implements Serializable {
   private String ip;
   private Integer del;
 
+  public VideoOrder() {
+  }
+
+  public VideoOrder(Integer id, String outTradeNo, Integer state, Date createTime,
+                    BigDecimal totalFee, String nickname, Integer videoId, String videoTitle, Integer userId) {
+    this.id = id;
+    this.outTradeNo = outTradeNo;
+    this.state = state;
+    this.createTime = createTime;
+    this.totalFee = totalFee;
+    this.nickname = nickname;
+    this.videoId = videoId;
+    this.videoTitle = videoTitle;
+    this.userId = userId;
+  }
 
   public Integer getId() {
     return id;
@@ -160,4 +176,24 @@ public class VideoOrder implements Serializable {
     this.del = del;
   }
 
+  @Override
+  public String toString() {
+    return "VideoOrder{" +
+            "id=" + id +
+            ", openid='" + openid + '\'' +
+            ", outTradeNo='" + outTradeNo + '\'' +
+            ", state=" + state +
+            ", createTime=" + createTime +
+            ", notifyTime=" + notifyTime +
+            ", totalFee=" + totalFee +
+            ", nickname='" + nickname + '\'' +
+            ", headImg='" + headImg + '\'' +
+            ", videoId=" + videoId +
+            ", videoTitle='" + videoTitle + '\'' +
+            ", videoImg='" + videoImg + '\'' +
+            ", userId=" + userId +
+            ", ip='" + ip + '\'' +
+            ", del=" + del +
+            '}';
+  }
 }

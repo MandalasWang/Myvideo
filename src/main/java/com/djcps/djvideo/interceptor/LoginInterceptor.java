@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * @author 有缘
+ */
 public class LoginInterceptor implements HandlerInterceptor {
     private static Gson gson = new Gson();
 

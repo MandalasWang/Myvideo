@@ -7,6 +7,7 @@ import com.djcps.djvideo.service.UserService;
 import com.djcps.djvideo.utils.HttpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -25,7 +26,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveWeChatUser(String code) {
-
         String accessTokenUrl = String.format(WeChatConfig.getOpenAccessTokenUrl(), weChatConfig.getOpenAppid(), 
                 weChatConfig.getOpenAppsecret(), code);
         //获取access_token
@@ -73,5 +73,11 @@ public class UserServiceImpl implements UserService {
         user.setCreateTime(new Date());
         userMapper.save(user);
         return user;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateUser(User user) {
+        return userMapper.update(user);
     }
 }

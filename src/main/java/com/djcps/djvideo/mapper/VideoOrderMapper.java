@@ -1,12 +1,14 @@
 package com.djcps.djvideo.mapper;
 
 import com.djcps.djvideo.domain.VideoOrder;
+import com.djcps.djvideo.provider.OrderProvider;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 /**
  * 订单dao层
+ * @author 有缘
  */
 public interface VideoOrderMapper {
     /**
@@ -77,5 +79,7 @@ public interface VideoOrderMapper {
      */
     @Select("select * from video_order where out_trade_no = #{outTradeNo}")
     VideoOrder findOrderByOutTradeNo(String outTradeNo);
+
+
 
 }

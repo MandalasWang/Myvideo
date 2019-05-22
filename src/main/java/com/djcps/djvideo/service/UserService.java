@@ -13,4 +13,11 @@ public interface UserService {
      * @return
      */
     User saveWeChatUser(String code);
+
+    /**
+     *
+     * @param user
+     * @return
+     */
+    int updateUser(User user);
 }

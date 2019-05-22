@@ -1,14 +1,15 @@
 package com.djcps.djvideo.mapper;
 
 import com.djcps.djvideo.domain.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.djcps.djvideo.domain.Video;
+import com.djcps.djvideo.provider.UserProvider;
+import com.djcps.djvideo.provider.VideoProvider;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 /**
  * 用户dao层
+ * @author 有缘
  */
 public interface UserMapper {
 
@@ -37,5 +38,12 @@ public interface UserMapper {
     @Select("select * from user where openid = #{openid}")
     User findByopenid(@Param("openid") String openid);
 
+    /**
+     * 动态更新用户信息
+     * @param user
+     * @return
+     */
+    @UpdateProvider(type = UserProvider.class,method = "updateUser")
+    int update(User user);
 
 }

@@ -5,7 +5,13 @@ server:
 #订单服务地址
 spring:
   application:
-    name: dj_video
+    name: djvideo-service
+
+#注册中心地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 
 #数据库配置  jdbc 6.0 for java 6.0及以上，都需要设置serverTimezone，否则会报错
   datasource:
