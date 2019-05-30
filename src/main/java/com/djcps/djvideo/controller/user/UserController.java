@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author 有缘
@@ -27,5 +30,15 @@ public class UserController {
             RetResponse.makeErrRsp("用户信息更新失败！");
         }
         return RetResponse.makeOKRsp();
+    }
+   @RequestMapping(value = "/userRegister")
+    public RetResult userRegister(MultipartFile file, HttpServletRequest request){
+        return userService.save(file,request);
+    }
+
+    @RequestMapping(value = "/userLogin")
+    public RetResult userLogin(@RequestBody User user){
+
+        return  null;
     }
 }

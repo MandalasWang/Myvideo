@@ -46,4 +46,5 @@ public interface UserMapper {
     @UpdateProvider(type = UserProvider.class,method = "updateUser")
     int update(User user);
 
+
 }

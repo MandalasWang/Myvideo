@@ -16,7 +16,6 @@ public class UserProvider {
     public String updateUser(final User user){
         return new SQL(){{
             UPDATE("user");
-
             //条件写法.
             if(user.getName()!= null){
                 SET("name=#{name}");

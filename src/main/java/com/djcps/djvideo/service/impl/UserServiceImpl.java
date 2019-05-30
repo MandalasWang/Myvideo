@@ -1,5 +1,7 @@
 package com.djcps.djvideo.service.impl;
 
+import com.djcps.djvideo.common.RetResponse;
+import com.djcps.djvideo.common.RetResult;
 import com.djcps.djvideo.config.WeChatConfig;
 import com.djcps.djvideo.domain.User;
 import com.djcps.djvideo.mapper.UserMapper;
@@ -8,10 +10,13 @@ import com.djcps.djvideo.utils.HttpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author 有缘
@@ -79,5 +84,24 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public int updateUser(User user) {
         return userMapper.update(user);
+    }
+
+    @Override
+    public RetResult save(MultipartFile file, HttpServletRequest request) {
+        User user = new User();
+        user.setName(request.getParameter("userName"));
+        user.setCity(request.getParameter("City"));
+        user.setSex(Integer.valueOf(request.getParameter("sex")));
+        user.setPhone(request.getParameter("phone"));
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        fileName = UUID.randomUUID().toString()+suffixName;
+        user.setHeadImg(fileName);
+        user.setOpenid(UUID.randomUUID().toString());
+        int row = userMapper.save(user);
+        if(row > 0){
+            return RetResponse.makeOKRsp(user);
+        }
+        return RetResponse.makeErrRsp("请求错误");
     }
 }

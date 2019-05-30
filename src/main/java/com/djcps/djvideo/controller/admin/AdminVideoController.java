@@ -47,7 +47,7 @@ public class AdminVideoController {
     }
 
     /**
-     * 保存视频
+     * 保存视频  上架视频
      * @param video
      * @return
      */

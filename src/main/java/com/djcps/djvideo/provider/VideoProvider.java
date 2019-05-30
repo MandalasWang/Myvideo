@@ -37,5 +37,24 @@ public class VideoProvider {
             }
             WHERE("id=#{id}");
         }}.toString();
+
+    }
+
+    /**
+     * 条件查询SQL语句
+     * @param video
+     * @return
+     */
+    public String selectBycondition(final Video video){
+        return new SQL(){{
+            SELECT("title","summary","cover_img","view_num","price","create_time","online","point");
+            FROM("video");
+            //条件写法.
+            WHERE("title=#{title}" );
+            OR();
+            WHERE("price=#{price}" );
+            OR();
+            WHERE("point=#{point}" );
+        }}.toString();
     }
 }

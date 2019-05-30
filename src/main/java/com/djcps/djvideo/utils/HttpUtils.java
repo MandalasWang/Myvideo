@@ -84,8 +84,6 @@ public class HttpUtils {
                 //允许自动重定向
                 .setRedirectsEnabled(true)
                 .build();
-
-
         HttpPost httpPost = new HttpPost(url);
         httpPost.setConfig(requestConfig);
         httpPost.addHeader("Content-Type", "text/html; chartset=UTF-8");
@@ -94,16 +92,13 @@ public class HttpUtils {
             StringEntity stringEntity = new StringEntity(data, "UTF-8");
             httpPost.setEntity(stringEntity);
         }
-
         try {
-
             CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 String result = EntityUtils.toString(httpEntity);
                 return result;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -113,7 +108,6 @@ public class HttpUtils {
                 e.printStackTrace();
             }
         }
-
         return null;
 
     }
