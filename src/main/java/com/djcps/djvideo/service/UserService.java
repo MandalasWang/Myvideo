@@ -19,15 +19,16 @@ public interface UserService {
     User saveWeChatUser(String code);
 
     /**
-     *
+     *修改用户信息
      * @param user
      * @return
      */
     int updateUser(User user);
 
     /**
-     * 用户注册
-     * @param user
+     * 保存用户信息
+     * @param file
+     * @param request
      * @return
      */
     RetResult save(MultipartFile file, HttpServletRequest request);

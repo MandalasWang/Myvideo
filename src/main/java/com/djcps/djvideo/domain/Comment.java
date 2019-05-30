@@ -3,6 +3,7 @@ package com.djcps.djvideo.domain;
 import java.io.Serializable;
 
 /**
+ * @author 有缘
  * 用户评论表
  */
 public class Comment implements Serializable {

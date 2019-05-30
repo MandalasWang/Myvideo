@@ -58,7 +58,7 @@ public class OrderConroller {
         }
         try{
             //生成二维码配置
-            Map<EncodeHintType,Object> hints =  new HashMap<>();
+            Map<EncodeHintType,Object> hints =  new HashMap<EncodeHintType,Object>();
             //设置纠错等级
             hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
             //编码类型

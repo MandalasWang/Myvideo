@@ -3,6 +3,7 @@ package com.djcps.djvideo.domain;
 import java.io.Serializable;
 
 /**
+ * @author 有缘
  * 视频章节表
  */
 public class Episode implements Serializable {

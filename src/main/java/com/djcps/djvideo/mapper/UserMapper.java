@@ -12,7 +12,11 @@ import org.springframework.stereotype.Repository;
  * @author 有缘
  */
 public interface UserMapper {
-
+    /**
+     * 保存订单
+     * @param user
+     * @return
+     */
     @Insert("INSERT INTO `user` ( `openid`, `name`, " +
             "`head_img`, `phone`, `sign`, `sex`," +
             " `city`, `create_time`)" +

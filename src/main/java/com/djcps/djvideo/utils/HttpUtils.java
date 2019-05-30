@@ -23,7 +23,7 @@ import java.util.Map;
 public class HttpUtils {
 
 
-    private static final Gson gson = new Gson();
+    private static final Gson GSON = new Gson();
 
     /**
      * get方法
@@ -33,7 +33,7 @@ public class HttpUtils {
      */
     public static Map<String, Object> doGet(String url) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<String, Object>();
         CloseableHttpClient httpClient = HttpClients.createDefault();
         //连接超时
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(5000)
@@ -50,9 +50,8 @@ public class HttpUtils {
         try {
             HttpResponse httpResponse = httpClient.execute(httpGet);
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
-
                 String jsonResult = EntityUtils.toString(httpResponse.getEntity());
-                map = gson.fromJson(jsonResult, map.getClass());
+                map = GSON.fromJson(jsonResult, map.getClass());
             }
 
         } catch (Exception e) {

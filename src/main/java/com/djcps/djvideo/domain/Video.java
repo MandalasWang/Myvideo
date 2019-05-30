@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
+ * @author 有缘
  * 视频实体
  */
 public class Video implements Serializable {

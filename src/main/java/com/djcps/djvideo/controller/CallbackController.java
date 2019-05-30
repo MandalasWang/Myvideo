@@ -28,6 +28,7 @@ import java.util.TreeMap;
 @RestController
 @RequestMapping("/api/v1/order/")
 public class CallbackController {
+    private final String SUCCESS ="SUCCESS";
 
     @Autowired
     private WeChatConfig weChatConfig;
@@ -93,10 +94,10 @@ public class CallbackController {
                 return ("退款失败!");
             }
             Map<String, String> resultMap = WxPayUtils.xmlToMap(xmlMsg);
-            String return_code = resultMap.get("return_code");
+            String returnCode = resultMap.get("return_code");
             // logger.debug("微信退款通知-return_code：" + return_code);
             /*在return_code为SUCCESS才有返回数据*/
-            if (!("SUCCESS").equals(return_code) || StringUtils.isBlank(return_code)) {
+            if (!(SUCCESS).equals(returnCode) || StringUtils.isBlank(returnCode)) {
                 return ("退款失败，返回支付！");
             }
             String base64Result = resultMap.get("req_info").toString();
@@ -112,9 +113,9 @@ public class CallbackController {
             //商户订单号
             String outTradeNo = map.get("out_trade_no");
             //状态码
-            String refund_status = map.get("refund_status");
+            String refundStatus = map.get("refund_status");
             /*logger.info("微信退款通知-refund_status：" + refund_status);*/
-            if (!("SUCCESS").equals(refund_status) || StringUtils.isBlank(refund_status)) {
+            if (!(SUCCESS).equals(refundStatus) || StringUtils.isBlank(refundStatus)) {
                 return ("退款失败！");
             }
             //退款通知信息接收成功  更改数据库订单状态为退款成功
