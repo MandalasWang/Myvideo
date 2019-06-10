@@ -16,7 +16,7 @@ public interface VideoMapper {
      * 查询video list
      * @return
      */
-    @Select("select * from video ")
+    @Select("select title,summary,cover_img,price,point  from video ")
     List<Video> list();
 
     /**
@@ -24,7 +24,7 @@ public interface VideoMapper {
      * @param id
      * @return
      */
-    @Select("select * from video where id =#{id}")
+    @Select("select title,summary,cover_img,price,point,online,create_time from video where id =#{id}")
     Video findByid(int id);
 
     /**
