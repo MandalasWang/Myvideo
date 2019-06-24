@@ -7,6 +7,7 @@ import com.djcps.djvideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,7 +39,11 @@ public class UserController {
 
     @RequestMapping(value = "/userLogin")
     public RetResult userLogin(@RequestBody User user){
+        return  userService.login(user);
+    }
 
-        return  null;
+    @RequestMapping(value = "/becomeMenber")
+    public RetResult becomeMember(@RequestBody User user){
+     return  userService.updateUser(user) == 1? RetResponse.makeOKRsp():RetResponse.makeErrRsp("会员注册失败");
     }
 }

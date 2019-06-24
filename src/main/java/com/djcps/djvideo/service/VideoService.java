@@ -1,6 +1,7 @@
 package com.djcps.djvideo.service;
 
 import com.djcps.djvideo.domain.Video;
+import com.djcps.djvideo.dto.VideoQuery;
 
 import java.util.List;
 
@@ -41,4 +42,10 @@ public interface VideoService {
      * @return
      */
     int save(Video video);
+
+    /**
+     *
+     * @return
+     */
+    List<Video> findByCondition(VideoQuery videoQuery);
 }

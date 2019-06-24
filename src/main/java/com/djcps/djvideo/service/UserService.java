@@ -32,4 +32,12 @@ public interface UserService {
      * @return
      */
     RetResult save(MultipartFile file, HttpServletRequest request);
+
+    /**
+     *用户登录
+     * @param user
+     */
+    RetResult login(User user);
+
+
 }

@@ -1,6 +1,7 @@
 package com.djcps.djvideo.mapper;
 
 import com.djcps.djvideo.domain.VideoOrder;
+import com.djcps.djvideo.dto.VideoOrderDto;
 import com.djcps.djvideo.provider.OrderProvider;
 import org.apache.ibatis.annotations.*;
 
@@ -80,6 +81,19 @@ public interface VideoOrderMapper {
     @Select("select * from video_order where out_trade_no = #{outTradeNo}")
     VideoOrder findOrderByOutTradeNo(String outTradeNo);
 
+    /**
+     * 更新订单信息
+     * @param videoOrderDto
+     * @return
+     */
+    @UpdateProvider(type = OrderProvider.class ,method = "updateOrder")
+    int UpdateOrder(VideoOrderDto videoOrderDto);
 
-
+    /**
+     * 删除订单
+     * @param id
+     * @return
+     */
+    @Delete("delete from video_order where id = #{id}")
+    int delete(Integer id);
 }

@@ -1,4 +1,4 @@
-package com.djcps.djvideo.controller;
+package com.djcps.djvideo.controller.asny;
 
 import com.djcps.djvideo.common.RetResponse;
 import com.djcps.djvideo.common.RetResult;

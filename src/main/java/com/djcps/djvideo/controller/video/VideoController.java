@@ -1,8 +1,9 @@
-package com.djcps.djvideo.controller;
+package com.djcps.djvideo.controller.video;
 
 import com.djcps.djvideo.common.RetResponse;
 import com.djcps.djvideo.common.RetResult;
 import com.djcps.djvideo.domain.Video;
+import com.djcps.djvideo.dto.VideoQuery;
 import com.djcps.djvideo.service.VideoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -33,7 +34,7 @@ public class VideoController {
         PageHelper.startPage(page,size);
         List<Video> list = videoService.findAll();
         PageInfo<Video> pageInfo = new PageInfo<>(list);
-        if (list == null) {
+        if (list.size() < 1) {
             return RetResponse.makeErrRsp("请求失败!");
         } else {
             return RetResponse.makeOKRsp(pageInfo);
@@ -55,6 +56,18 @@ public class VideoController {
         }
     }
 
+    public RetResult<PageInfo> getVideoByCondition(@RequestParam("pageSize") int pageSize,
+                                           @RequestParam("pageNum")int pageNum,
+                                           @RequestBody VideoQuery videoQuery){
+        PageHelper.startPage(pageNum,pageSize);
+        List<Video> list = videoService.findByCondition(videoQuery);
+        PageInfo<Video> pageInfo = new PageInfo<>(list);
+        if(list.size() < 1){
+           return  RetResponse.makeOKRsp("数据查询不到");
+        }else {
+           return RetResponse.makeOKRsp(pageInfo);
+        }
+    }
 
 
 }

@@ -1,5 +1,7 @@
 package com.djcps.djvideo.service.impl;
 
+import com.djcps.djvideo.common.RetResponse;
+import com.djcps.djvideo.common.RetResult;
 import com.djcps.djvideo.config.WeChatConfig;
 import com.djcps.djvideo.domain.User;
 import com.djcps.djvideo.domain.Video;
@@ -128,5 +130,22 @@ public class VideoOrderServiceImpl implements VideoOrderService {
             return null;
         }
 
+    }
+
+    @Override
+    public int updateOrder(VideoOrderDto videoOrderDto) {
+       VideoOrder order = videoOrderMapper.findById(Integer.valueOf(videoOrderDto.getId()));
+       if(order == null){
+           return 2 ;
+       }
+       else {
+           return videoOrderMapper.UpdateOrder(videoOrderDto);
+       }
+    }
+
+    @Override
+    public RetResult delete(VideoOrderDto videoOrderDto) {
+        int i = videoOrderMapper.delete(videoOrderDto.getId());
+        return i==1?RetResponse.makeOKRsp():RetResponse.makeErrRsp("删除失败");
     }
 }

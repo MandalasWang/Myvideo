@@ -50,5 +50,11 @@ public interface UserMapper {
     @UpdateProvider(type = UserProvider.class,method = "updateUser")
     int update(User user);
 
-
+    /**
+     * 用户登录
+     * @param user
+     * @return
+     */
+    @Select("select phone,id from user where phone =#{phone}")
+    User login(User user);
 }

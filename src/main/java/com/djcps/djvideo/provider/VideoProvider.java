@@ -1,6 +1,7 @@
 package com.djcps.djvideo.provider;
 
 import com.djcps.djvideo.domain.Video;
+import com.djcps.djvideo.dto.VideoQuery;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
@@ -45,16 +46,14 @@ public class VideoProvider {
      * @param video
      * @return
      */
-    public String selectBycondition(final Video video){
+    public String selectBycondition(final VideoQuery videoQuery){
         return new SQL(){{
             SELECT("title","summary","cover_img","view_num","price","create_time","online","point");
             FROM("video");
             //条件写法.
-            WHERE("title=#{title}" );
+            WHERE("title  like ${%videoName%}" );
             OR();
-            WHERE("price=#{price}" );
-            OR();
-            WHERE("point=#{point}" );
+            WHERE("create_time between #{startTime} and #{endTime}" );
         }}.toString();
     }
 }

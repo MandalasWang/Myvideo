@@ -2,6 +2,7 @@ package com.djcps.djvideo.mapper;
 
 
 import com.djcps.djvideo.domain.Video;
+import com.djcps.djvideo.dto.VideoQuery;
 import com.djcps.djvideo.provider.VideoProvider;
 import org.apache.ibatis.annotations.*;
 
@@ -56,4 +57,12 @@ public interface VideoMapper {
             ",#{online},#{point});")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int save(Video video);
+
+    /**
+     * 根据条件查询video
+     * @param videoQuery
+     * @return
+     */
+    @SelectProvider(type = VideoProvider.class,method = "selectBycondition")
+    List<Video> getVideoByCondition(VideoQuery videoQuery);
 }

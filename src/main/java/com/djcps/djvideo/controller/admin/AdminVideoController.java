@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("admin/api/v1/video")
 @RestController
 public class AdminVideoController {
+
     @Autowired
     private VideoService videoService;
 

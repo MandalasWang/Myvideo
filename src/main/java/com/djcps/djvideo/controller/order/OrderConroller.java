@@ -1,4 +1,4 @@
-package com.djcps.djvideo.controller;
+package com.djcps.djvideo.controller.order;
 
 import com.djcps.djvideo.common.RetResponse;
 import com.djcps.djvideo.common.RetResult;
@@ -12,10 +12,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -72,5 +69,25 @@ public class OrderConroller {
         }
         return RetResponse.makeOKRsp("下单成功!");
     }
-
+    @RequestMapping(value = "/updateOrder")
+     public RetResult updateOrder(@RequestBody VideoOrderDto videoOrderDto){
+         int i = videoOrderServicel.updateOrder(videoOrderDto);
+         switch (i){
+             case 0 :
+                 RetResponse.makeErrRsp("订单更新失败");
+                 break;
+             case 1 :
+                 RetResponse.makeOKRsp();
+                 break;
+             case 2:
+                 RetResponse.makeOKRsp("订单查询失败");
+                 break;
+                 default:
+         }
+        return null;
+     }
+     @RequestMapping(value = "/delVideoOrder")
+     public RetResult delVideoOrder(@RequestBody VideoOrderDto videoOrderDto){
+        return videoOrderServicel.delete(videoOrderDto);
+     }
 }

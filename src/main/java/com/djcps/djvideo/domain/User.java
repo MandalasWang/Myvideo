@@ -29,7 +29,7 @@ public class User implements Serializable {
   private Integer sex;
   private String city;
   private Date createTime;
-
+  private Integer right;
 
   public Integer getId() {
     return id;
@@ -111,4 +111,11 @@ public class User implements Serializable {
     this.createTime = createTime;
   }
 
+  public Integer getRight() {
+    return right;
+  }
+
+  public void setRight(Integer right) {
+    this.right = right;
+  }
 }

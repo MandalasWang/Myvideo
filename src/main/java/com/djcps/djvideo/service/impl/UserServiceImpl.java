@@ -98,10 +98,18 @@ public class UserServiceImpl implements UserService {
         fileName = UUID.randomUUID().toString()+suffixName;
         user.setHeadImg(fileName);
         user.setOpenid(UUID.randomUUID().toString());
+        user.setRight(0);
         int row = userMapper.save(user);
         if(row > 0){
-            return RetResponse.makeOKRsp(user);
+            return RetResponse.makeOKRsp("请求成功");
         }
         return RetResponse.makeErrRsp("请求错误");
     }
+
+    @Override
+    public RetResult login(User user) {
+        return userMapper.login(user)==null?RetResponse.makeErrRsp("用户未登录"):RetResponse.makeOKRsp();
+    }
+
+
 }

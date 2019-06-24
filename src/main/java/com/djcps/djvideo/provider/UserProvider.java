@@ -27,6 +27,10 @@ public class UserProvider {
                 SET("sex=#{sex}");
             }
             WHERE("id=#{id}");
+            if(user.getRight()!= 1){
+                SET("right=#{right}");
+            }
+            WHERE("phone=#{phone}");
         }}.toString();
     }
 }

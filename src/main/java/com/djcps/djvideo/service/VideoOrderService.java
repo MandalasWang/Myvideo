@@ -1,5 +1,6 @@
 package com.djcps.djvideo.service;
 
+import com.djcps.djvideo.common.RetResult;
 import com.djcps.djvideo.domain.VideoOrder;
 import com.djcps.djvideo.dto.VideoOrderDto;
 
@@ -29,4 +30,18 @@ public interface VideoOrderService {
      * @return
      */
     int updatePayState(String outTradeNo, int state);
+
+    /**
+     * 跟新用户订单信息
+     * @param oid
+     * @return
+     */
+    int updateOrder(VideoOrderDto videoOrderDto);
+
+    /**
+     * 删除订单
+     * @param videoOrderDto
+     * @return
+     */
+    RetResult delete(VideoOrderDto videoOrderDto);
 }

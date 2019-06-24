@@ -1,6 +1,7 @@
 package com.djcps.djvideo.service.impl;
 
 import com.djcps.djvideo.domain.Video;
+import com.djcps.djvideo.dto.VideoQuery;
 import com.djcps.djvideo.mapper.VideoMapper;
 import com.djcps.djvideo.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,10 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public int save(Video video) {
         return videoMapper.save(video);
+    }
+
+    @Override
+    public List<Video> findByCondition(VideoQuery videoQuery) {
+        return videoMapper.getVideoByCondition(videoQuery);
     }
 }
